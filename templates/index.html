@@ -1,11 +1,18 @@
 <!doctype html>
+<script>
+  function checkForm(form) {
+    form.submitBtn.disabled= true;
+    form.submitBtn.value = "Generating video please wait :)"
+    return true;
+  }
+</script>
 <html>
   <head>
     <title>File Upload</title>
   </head>
   <body>
   <h1>File Upload</h1>
-  <form method="POST" action="" enctype="multipart/form-data" id="edits">
+  <form method="POST" action="" enctype="multipart/form-data" id="edits" onsubmit="return checkForm(this)">
     <p><input type="file" name="file"></p>
     <label>
       <select name="topic" form="edits">
@@ -17,7 +24,7 @@
         <option></option>
       </select>
     </label>
-    <p><input type="submit" value="Submit"></p>
+    <p><input type="submit" value="Submit" name="submitBtn"></p>
   </form>
   </body>
 </html>
