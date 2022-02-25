@@ -7,10 +7,15 @@ app = Flask(__name__, static_folder='static')
 root_path = app.root_path
 
 
+def delete_file(path):
+    if os.path.exists(path):
+        os.remove(path)
+
+
 @app.route('/video')
 def vid_page():
     vid_name = request.args["vid_name"]
-    Timer(500, os.remove, args=(os.path.join(root_path, "static", vid_name), )).start()
+    Timer(500, delete_file, args=(os.path.join(root_path, "static", vid_name), )).start()
     return render_template('done_video.html', vid_name=vid_name)
 
 
