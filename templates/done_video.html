@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Example</title>
+</head>
+<body>
+  <h2>Edited video:</h2>
+  <video width="320" height="240" controls>
+    <source src={{ url_for('static', filename=vid_name) }} type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</body>
+</html>
