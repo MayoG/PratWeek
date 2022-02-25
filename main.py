@@ -4,12 +4,13 @@ from threading import Timer
 import os
 
 app = Flask(__name__, static_folder='static')
-
+root_path = app.root_path
+print(root_path)
 
 @app.route('/video')
 def vid_page():
     vid_name = request.args["vid_name"]
-    Timer(500, os.remove, args=(os.path.join("static", vid_name), )).start()
+    Timer(500, os.remove, args=(os.path.join(root_path, "static", vid_name), )).start()
     return render_template('done_video.html', vid_name=vid_name)
 
 
@@ -22,8 +23,8 @@ def index():
 def upload_file():
     uploaded_file = request.files['file']
     if uploaded_file.filename != '':
-        vid_path = os.path.join("static", uploaded_file.filename)
-        edited_vid_path = os.path.join("static", f"edited_{uploaded_file.filename}")
+        vid_path = os.path.join(root_path, "static", uploaded_file.filename)
+        edited_vid_path = os.path.join(root_path, "static", f"edited_{uploaded_file.filename}")
         uploaded_file.save(vid_path)
 
         edit_video(video_path=vid_path,
