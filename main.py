@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, send_file
 from edit_video_utils import edit_video
 import os
 
 app = Flask(__name__, static_folder='static')
 root_path = app.root_path
-
+vid_counter = 0
 
 def delete_file(path):
     if os.path.exists(path):
@@ -29,8 +29,8 @@ def upload_file():
                    color=tuple(map(int, request.form["topic"].split(', '))),
                    new_path=edited_vid_path,
                    delete_source=True)
-
-        return redirect(url_for('static', filename=f"edited_{uploaded_file.filename}"))
+        return send_file(edited_vid_path, as_attachment=True)
+        # return redirect(url_for('static', filename=f"edited_{uploaded_file.filename}"))
 
 
 if __name__ == '__main__':
