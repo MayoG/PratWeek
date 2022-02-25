@@ -4,6 +4,7 @@ from moviepy.editor import VideoFileClip, CompositeAudioClip, AudioFileClip
 
 
 def edit_video(video_path, background_music, color, new_path=None, delete_source=False):
+    print(video_path)
     if not new_path:
         new_path = video_path
         delete_source = False
