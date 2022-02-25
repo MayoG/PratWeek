@@ -1,9 +1,20 @@
 <!doctype html>
 <script>
   function checkForm(form) {
-    form.submitBtn.disabled= true;
-    form.submitBtn.value = "עורך את הסרטון, חכה בבקשה :)"
-    return true;
+    var afterText = document.getElementById("afterText");
+
+    if (form.file.files.length > 0) {
+      form.submitBtn.disabled= true;
+      form.submitBtn.value = "עורך את הסרטון, חכה בבקשה :)"
+      afterText.innerText = "עורך את הסרטון, רענן את הדף בשביל סרטון נוסף אחרי ההורדה"
+      afterText.hidden = false;
+      return true;
+    }
+    else {
+      afterText.innerText = "אנא בחר סרטון להורדה"
+      afterText.hidden = false;
+      return false;
+    }
   }
 </script>
 <style>
@@ -34,6 +45,7 @@
       </select>
     </label>
     <p><input type="submit" value="ערוך !" name="submitBtn"></p>
+    <div id="afterText" hidden="true">רענן את הדף בשביל סרטון נוסף אחרי ההורדה</div>
   </form>
   </body>
 </html>
