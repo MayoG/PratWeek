@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__, static_folder='static')
 root_path = app.root_path
-print(root_path)
+
 
 @app.route('/video')
 def vid_page():
@@ -28,6 +28,7 @@ def upload_file():
         uploaded_file.save(vid_path)
 
         edit_video(video_path=vid_path,
+                   background_music=os.path.join(root_path, 'utils', 'music', 'music_lower.mp3'),
                    color=tuple(map(int, request.form["topic"].split(', '))),
                    new_path=edited_vid_path,
                    delete_source=True)
