@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
 from edit_video_utils import edit_video
-from threading import Timer
 import os
 
 app = Flask(__name__, static_folder='static')
@@ -10,13 +9,6 @@ root_path = app.root_path
 def delete_file(path):
     if os.path.exists(path):
         os.remove(path)
-
-
-@app.route('/video')
-def vid_page():
-    vid_name = request.args["vid_name"]
-    Timer(500, delete_file, args=(os.path.join(root_path, "static", vid_name), )).start()
-    return render_template('done_video.html', vid_name=vid_name)
 
 
 @app.route('/')
@@ -38,7 +30,7 @@ def upload_file():
                    new_path=edited_vid_path,
                    delete_source=True)
 
-        return redirect(url_for('vid_page', vid_name=f"edited_{uploaded_file.filename}"))
+        return redirect(url_for('static', filename=f"edited_{uploaded_file.filename}"))
 
 
 if __name__ == '__main__':
