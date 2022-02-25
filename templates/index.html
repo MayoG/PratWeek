@@ -2,16 +2,25 @@
 <script>
   function checkForm(form) {
     form.submitBtn.disabled= true;
-    form.submitBtn.value = "Generating video please wait :)"
+    form.submitBtn.value = "עורך את הסרטון, חכה בבקשה :)"
     return true;
   }
 </script>
+<style>
+  body {
+    display: grid;
+    justify-content: center;
+    margin-top: 5%;
+    align-items: center;
+}
+
+</style>
 <html>
   <head>
     <title>Edit video</title>
   </head>
   <body>
-  <h1>עורך סרטונים שלנו :)</h1>
+  <h1>עורך הסרטונים שלנו :)</h1>
   <form method="POST" action="" enctype="multipart/form-data" id="edits" onsubmit="return checkForm(this)">
     <p><input type="file" name="file"></p>
     <label>
@@ -24,7 +33,7 @@
         <option></option>
       </select>
     </label>
-    <p><input type="submit" value="Submit" name="submitBtn"></p>
+    <p><input type="submit" value="ערוך !" name="submitBtn"></p>
   </form>
   </body>
 </html>
