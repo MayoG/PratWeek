@@ -41,7 +41,8 @@ def edit_video(video_path, background_music, texts_path, color, new_path=None, d
             audio_background = audio_background.set_end(my_clip.duration - 0.5)
             final_audio = CompositeAudioClip([my_clip.audio, audio_background])
             my_clip = my_clip.set_audio(final_audio)
-            text_clip = load_text(color, texts_path)
+            # text_clip = load_text(color, texts_path)
+            text_clip = create_intro_text(my_clip.size, color, texts_path)
             my_clip = CompositeVideoClip([my_clip, text_clip])
             my_clip.write_videofile(new_path, codec="libx264", threads=4, logger=None)
 
@@ -76,7 +77,7 @@ def create_intro_text(screensize, color, file_name):
         # if i % 2: v[1] = -v[1]
         return lambda t: screenpos + 400 * d(t - 0.1 * i) * rotMatrix(-0.2 * d(t) * a).dot(v)
 
-    letters = findObjects(cvc, rem_thr=100)
+    letters = findObjects(cvc, rem_thr=20)
 
     def moveLetters(letters, funcpos):
         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
@@ -89,16 +90,16 @@ def create_intro_text(screensize, color, file_name):
     # WE CONCATENATE EVERYTHING AND WRITE TO A FILE
 
     final_clip = concatenate_videoclips(clips)
-    with open(file_name, "wb") as file:
-        pickle.dump(final_clip, file)
+    # with open(file_name, "wb") as file:
+    #     pickle.dump(final_clip, file)
     return final_clip
 
 
 if __name__ == '__main__':
-    # edit_video(r'example_video.mp4',
-    #            'utils/music/music_lower.mp3', texts_path='texts/', color=(102, 153, 255), new_path="test123.mp4")
-    create_intro_text((848, 480), (102, 153, 255), "texts/LightBlue1.pkl")
-    create_intro_text((848, 480), (218, 112, 214), "texts/orchid.pkl")
-    create_intro_text((848, 480), (255, 0, 0), "texts/red.pkl")
-    create_intro_text((848, 480), (211, 211, 211), "texts/LightGray.pkl")
-    create_intro_text((848, 480), (0, 0, 255), "texts/CadetBlue.pkl")
+    edit_video(r'example_video.mp4',
+               'utils/music/music_lower.mp3', texts_path='texts/', color=(102, 153, 255), new_path="test123.mp4")
+    # create_intro_text((848, 480), (102, 153, 255), "texts/LightBlue1.pkl")
+    # create_intro_text((848, 480), (218, 112, 214), "texts/orchid.pkl")
+    # create_intro_text((848, 480), (255, 0, 0), "texts/red.pkl")
+    # create_intro_text((848, 480), (211, 211, 211), "texts/LightGray.pkl")
+    # create_intro_text((848, 480), (0, 0, 255), "texts/CadetBlue.pkl")
