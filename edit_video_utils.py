@@ -9,9 +9,9 @@ from moviepy.video.tools.segmenting import findObjects
 colors = {
     (102, 153, 255): "LightBlue1",
     (218, 112, 214): "orchid",
-    (255, 0, 0): "red",
+    (255, 0, 0): "DarkRed",
     (211, 211, 211): "LightGray",
-    (0, 0, 255): "blue",
+    (0, 0, 255): "CadetBlue",
 }
 
 
@@ -35,7 +35,7 @@ def edit_video(video_path, background_music, color, new_path=None, delete_source
 
 
 def create_intro_text(screensize, color):
-    txtClip = TextClip('בהד קוד', color=colors.get(color, "black"), font="Amiri-Bold",
+    txtClip = TextClip('בה"ד קוד', color=colors.get(color, "black"), font="David-Bold",
                        kerning=5, fontsize=100)
     cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
                              size=screensize)
@@ -58,7 +58,7 @@ def create_intro_text(screensize, color):
         # if i % 2: v[1] = -v[1]
         return lambda t: screenpos + 400 * d(t - 0.1 * i) * rotMatrix(-0.2 * d(t) * a).dot(v)
 
-    letters = findObjects(cvc)  # a list of ImageClips
+    letters = findObjects(cvc)
 
     def moveLetters(letters, funcpos):
         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     # edit_video(r'C:\Users\user\Downloads\trim.04212816-F4B6-4241-B3A1-73133DD435A4.mov',
     #            'utils/music/music_lower.mp3', color=(255, 255, 0), new_path="test123.mp4")
     edit_video(r'example_video.mp4',
-               'utils/music/music_lower.mp3', color=(102, 153, 255), new_path="test123.mp4")
+               'utils/music/music_lower.mp3', color=(0, 0, 255), new_path="test123.mp4")
