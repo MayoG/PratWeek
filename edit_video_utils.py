@@ -77,7 +77,7 @@ def create_intro_text(screensize, color, file_name):
         # if i % 2: v[1] = -v[1]
         return lambda t: screenpos + 400 * d(t - 0.1 * i) * rotMatrix(-0.2 * d(t) * a).dot(v)
 
-    letters = findObjects(cvc, rem_thr=20)
+    letters = findObjects(cvc, rem_thr=2)
 
     def moveLetters(letters, funcpos):
         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
