@@ -9,7 +9,7 @@ from moviepy.video.tools.segmenting import findObjects
 colors = {
     (102, 153, 255): "LightBlue1",
     (218, 112, 214): "orchid",
-    (255, 0, 0): "DarkRed",
+    (255, 0, 0): "LightYellow",
     (211, 211, 211): "LightGray",
     (0, 0, 255): "CadetBlue",
 }
@@ -78,4 +78,4 @@ if __name__ == '__main__':
     # edit_video(r'C:\Users\user\Downloads\trim.04212816-F4B6-4241-B3A1-73133DD435A4.mov',
     #            'utils/music/music_lower.mp3', color=(255, 255, 0), new_path="test123.mp4")
     edit_video(r'example_video.mp4',
-               'utils/music/music_lower.mp3', color=(0, 0, 255), new_path="test123.mp4")
+               'utils/music/music_lower.mp3', color=(255, 0, 0), new_path="test123.mp4")
