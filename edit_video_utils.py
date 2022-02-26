@@ -42,46 +42,46 @@ def edit_video(video_path, background_music, texts_path, color, new_path=None, d
         os.remove(video_path)
 
 
-def create_intro_text(screensize, color):
-    text = 'בה"ד קוד'.encode('utf-8')
-    txtClip = TextClip(text, color=colors.get(color, "black"), font="Guttman-Aharoni-Bold",
-                       kerning=10, fontsize=100)
-    cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
-                             size=screensize)
-
-    # helper function
-    rotMatrix = lambda a: np.array([[np.cos(a), np.sin(a)],
-                                    [-np.sin(a), np.cos(a)]])
-
-    def cascade(screenpos, i, nletters):
-        i = nletters - i
-        v = np.array([0, -1])
-        d = lambda t: 1 if t < 0 else abs(np.sinc(t) / (1 + t ** 4))
-        return lambda t: screenpos + v * 400 * d(t - 0.15 * i)
-
-    def vortexout(screenpos, i, nletters):
-        i = nletters - i
-        d = lambda t: max(0, t)  # damping
-        a = - np.pi / 2  # angle of the movement
-        v = rotMatrix(a).dot([-1, 0])
-        # if i % 2: v[1] = -v[1]
-        return lambda t: screenpos + 400 * d(t - 0.1 * i) * rotMatrix(-0.2 * d(t) * a).dot(v)
-
-    letters = findObjects(cvc, rem_thr=100)
-
-    def moveLetters(letters, funcpos):
-        return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
-                for i, letter in enumerate(letters)]
-
-    clips = [CompositeVideoClip(moveLetters(letters, funcpos),
-                                size=screensize).subclip(0, 5)
-             for funcpos in [cascade, vortexout]]
-
-    # WE CONCATENATE EVERYTHING AND WRITE TO A FILE
-
-    final_clip = concatenate_videoclips(clips)
-    pickle.dump(final_clip, open("texts/LightBlue1.pkl", "wb"))
-    return final_clip
+# def create_intro_text(screensize, color):
+#     text = 'בה"ד קוד'.encode('utf-8')
+#     txtClip = TextClip(text, color=colors.get(color, "black"), font="Guttman-Aharoni-Bold",
+#                        kerning=10, fontsize=100)
+#     cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
+#                              size=screensize)
+#
+#     # helper function
+#     rotMatrix = lambda a: np.array([[np.cos(a), np.sin(a)],
+#                                     [-np.sin(a), np.cos(a)]])
+#
+#     def cascade(screenpos, i, nletters):
+#         i = nletters - i
+#         v = np.array([0, -1])
+#         d = lambda t: 1 if t < 0 else abs(np.sinc(t) / (1 + t ** 4))
+#         return lambda t: screenpos + v * 400 * d(t - 0.15 * i)
+#
+#     def vortexout(screenpos, i, nletters):
+#         i = nletters - i
+#         d = lambda t: max(0, t)  # damping
+#         a = - np.pi / 2  # angle of the movement
+#         v = rotMatrix(a).dot([-1, 0])
+#         # if i % 2: v[1] = -v[1]
+#         return lambda t: screenpos + 400 * d(t - 0.1 * i) * rotMatrix(-0.2 * d(t) * a).dot(v)
+#
+#     letters = findObjects(cvc, rem_thr=100)
+#
+#     def moveLetters(letters, funcpos):
+#         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
+#                 for i, letter in enumerate(letters)]
+#
+#     clips = [CompositeVideoClip(moveLetters(letters, funcpos),
+#                                 size=screensize).subclip(0, 5)
+#              for funcpos in [cascade, vortexout]]
+#
+#     # WE CONCATENATE EVERYTHING AND WRITE TO A FILE
+#
+#     final_clip = concatenate_videoclips(clips)
+#     pickle.dump(final_clip, open("texts/LightBlue1.pkl", "wb"))
+#     return final_clip
 
 
 if __name__ == '__main__':
