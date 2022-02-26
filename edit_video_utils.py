@@ -14,6 +14,7 @@ colors = {
     (0, 0, 255): "blue",
 }
 
+
 def edit_video(video_path, background_music, color, new_path=None, delete_source=False):
     if not new_path:
         new_path = video_path
@@ -34,12 +35,10 @@ def edit_video(video_path, background_music, color, new_path=None, delete_source
 
 
 def create_intro_text(screensize, color):
-    txtClip = TextClip('בהד קוד', color=colors.get(color, "black"), font="Amiri-Bold",
+    txtClip = TextClip('בה"ד קוד', color=colors.get(color, "black"), font="Amiri-Bold",
                        kerning=5, fontsize=100)
     cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
                              size=screensize)
-
-    # THE NEXT FOUR FUNCTIONS DEFINE FOUR WAYS OF MOVING THE LETTERS
 
     # helper function
     rotMatrix = lambda a: np.array([[np.cos(a), np.sin(a)],
