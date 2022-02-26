@@ -35,8 +35,9 @@ def edit_video(video_path, background_music, color, new_path=None, delete_source
 
 
 def create_intro_text(screensize, color):
-    txtClip = TextClip('בה"ד קוד', color=colors.get(color, "black"), font="David-Bold",
-                       kerning=5, fontsize=100)
+    text = 'בה"ד קוד'.encode('utf-8')
+    txtClip = TextClip(text, color=colors.get(color, "black"), font="David-Bold",
+                       kerning=10, fontsize=100)
     cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
                              size=screensize)
 
