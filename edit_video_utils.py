@@ -64,9 +64,7 @@ def create_intro_text(screensize, color):
         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
                 for i, letter in enumerate(letters)]
 
-    clips = [CompositeVideoClip(moveLetters(letters, funcpos),
-                                size=screensize).subclip(0, 5)
-             for funcpos in [cascade, vortexout]]
+    clips = [CompositeVideoClip(moveLetters(letters, funcpos), size=screensize).subclip(0, 3) for funcpos in [cascade, vortexout]]
 
     # WE CONCATENATE EVERYTHING AND WRITE TO A FILE
 
