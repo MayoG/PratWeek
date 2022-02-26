@@ -35,7 +35,7 @@ def edit_video(video_path, background_music, color, new_path=None, delete_source
 
 
 def create_intro_text(screensize, color):
-    txtClip = TextClip("בהד קוד", color=colors.get(color, "black"), font="Amiri-Bold",
+    txtClip = TextClip('בהד קוד', color=colors.get(color, "black"), font="Amiri-Bold",
                        kerning=5, fontsize=100)
     cvc = CompositeVideoClip([txtClip.set_pos(('center', 'top'))],
                              size=screensize)
@@ -64,7 +64,9 @@ def create_intro_text(screensize, color):
         return [letter.set_pos(funcpos(letter.screenpos, i, len(letters)))
                 for i, letter in enumerate(letters)]
 
-    clips = [CompositeVideoClip(moveLetters(letters, funcpos), size=screensize).subclip(0, 3) for funcpos in [cascade, vortexout]]
+    clips = [CompositeVideoClip(moveLetters(letters, funcpos),
+                                size=screensize).subclip(0, 5)
+             for funcpos in [cascade, vortexout]]
 
     # WE CONCATENATE EVERYTHING AND WRITE TO A FILE
 
