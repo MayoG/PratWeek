@@ -16,13 +16,13 @@ colors = {
 }
 
 
-def load_text(color):
-    with open(f'texts/{colors[color]}', 'rb') as handle:
+def load_text(color, texts_path):
+    with open(os.path.join(texts_path, colors[color]), 'rb') as handle:
         b = pickle.load(handle)
     return b
 
 
-def edit_video(video_path, background_music, color, new_path=None, delete_source=False):
+def edit_video(video_path, background_music, texts_path, color, new_path=None, delete_source=False):
     if not new_path:
         new_path = video_path
         delete_source = False
@@ -34,7 +34,7 @@ def edit_video(video_path, background_music, color, new_path=None, delete_source
             final_audio = CompositeAudioClip([my_clip.audio, audio_background])
             my_clip = my_clip.set_audio(final_audio)
             # text_clip = create_intro_text(screensize=my_clip.size, color=color)
-            text_clip = load_text(color)
+            text_clip = load_text(color, texts_path)
             my_clip = CompositeVideoClip([my_clip, text_clip])
             my_clip.write_videofile(new_path, codec="libx264", threads=4, logger=None)
 

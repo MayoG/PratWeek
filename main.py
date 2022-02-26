@@ -29,6 +29,7 @@ def upload_file():
 
         edit_video(video_path=vid_path,
                    background_music=os.path.join(root_path, 'utils', 'music', 'music_lower.mp3'),
+                   texts_path=os.path.join(root_path, 'texts'),
                    color=tuple(map(int, request.form["topic"].split(', '))),
                    new_path=edited_vid_path,
                    delete_source=True)
